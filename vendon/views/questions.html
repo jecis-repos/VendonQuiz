@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .hero {
+            background-color: #f8f9fa;
+            padding: 60px 0;
+        }
+
+        .question-section {
+            margin-top: 25px;
+        }
+
+        /* ... other styles ... */
+        .answer-card {
+            cursor: pointer; /* Make cards look clickable */
+            box-shadow: 0.7rem 0.9rem 0.9rem rgba(236, 157, 129, 0.83); /* Add shadow */
+            border: 1px solid rgba(241, 11, 11, 0.25); /* Add a subtle border */
+            transition: background-color 0.6s, border-color 0.3s; /* Smooth transition for selection */
+            background-color: rgba(250, 244, 191, 0.2); /* Default background color */
+        }
+
+        .answer-card.selected {
+            background-color: rgba(255, 29, 24, 0.15); /* Highlight selected card */
+            border-color: rgba(218, 61, 47, 0.7);
+            box-shadow: 0.6rem 1.5rem 1.9rem rgba(201, 65, 29, 0.42); /* Add shadow */
+            transition: background-color 0.3s, border-color 0.8s, box-shadow 0.6s; /* Smooth transition for selection */
+            transform: scale(1.1); /* Scale up the selected card */
+        }
+
+        /* Hide default radio button appearance */
+        .answer-input {
+            display: none;
+        }
+
+        /* Style the custom radio button */
+        .answer-input + label {
+            position: relative;
+            padding-left: 35px;
+            cursor: pointer;
+            display: inline-block;
+            font-size: 16px;
+        }
+
+
+        .progress-bar {
+            background-color: rgba(255, 29, 24, 0.15);
+            background-image: linear-gradient(45deg, rgb(255, 155, 99) 5%, transparent 5%, transparent 5%, rgba(236, 157, 129, 0.83) 50%, rgba(255, 84, 84, 0.9) 75%, transparent 5%, transparent);
+            background-size: 1rem 1rem;
+            transition: width 0.6s;
+        }
+
+        .progress-bar-animated {
+            animation: progress-bar-stripes 2s linear infinite;
+        }
+
+        @keyframes progress-bar-stripes {
+            from {
+                background-position: 1rem 0;
+            }
+            to {
+                background-position: 0 0;
+            }
+        }
+
+        .question-section {
+            margin-top: 25px;
+            margin-bottom: 25px;
+            background-color: rgba(248, 121, 121, 0.18);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0.7rem 0.9rem 0.9rem rgba(236, 157, 129, 0.83);
+            transition: background-color 0.6s, border-color 0.3s;
+        }
+
+        body {
+            background-color: rgba(250, 201, 195, 0.34);
+        }
+
+        .hero {
+            background-color: rgba(246, 171, 171, 0.56);
+            padding: 60px 0;
+            margin-bottom: 25px;
+            border-radius: 10px;
+            box-shadow: 0.7rem 0.9rem 0.9rem rgba(236, 157, 129, 0.83);
+            transition: background-color 0.6s, border-color 0.3s;
+        }
+    </style>
+</head>
+<body>
+<section class="hero">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8"> <!-- Wider column for quiz content -->
+                <h1 class="text-center mb-4" id="quizName">Quiz Name</h1>  <!-- Quiz Name -->
+                <p class="lead text-center" id="quizDescription">Quiz description goes here.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="question-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8" id="questionContainer">
+                <div class="row mt-4" id="answers-grid">
+                </div>
+            </div>
+            <div class="row justify-content-center mt-4">
+                <div class="progress w-100">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                         id="progress"
+                         aria-valuemin="0" aria-valuemax="100"
+                    >
+                    </div>
+                </div>
+            </div>
+            <div id="paginationContainer" class="text-center mt-4">
+                <button class="btn btn-warning" id="nextButton" onclick="showNextQuestion()" disabled>
+                    Next
+                </button>
+                <form id="resultForm">
+                    <button class="btn btn-success" id="resultButton" type="submit" style="display: none">
+                        Finish
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    let currentQuestionIndex = 0;
+    let questions = [];
+    const quizName = document.getElementById('quizName');
+    const quizDescription = document.getElementById('quizDescription');
+    // Get the query string from the URL
+    const queryString = window.location.search;
+    // Parse the query string
+    const urlParams = new URLSearchParams(queryString);
+    const username = urlParams.get('username');
+    const quizId = urlParams.get('quizId');
+    let progressBar = document.getElementById("progress");
+    // Log the values to the console (for debugging purposes)
+    let answerCards = document.querySelectorAll('.answer-card');
+    let answers = [];
+    const form = document.getElementById('resultForm');
+
+    form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        postAnswers();
+        window.location.href = '/result?username=' + username + '&quizId=' + quizId + '&questions=' + questions.length;
+    });
+
+    function highlightSelectedCard(selectedRadio) {
+        answerCards.forEach(card => {
+            const cardRadio = card.querySelector('.answer-input');
+            if (cardRadio === selectedRadio) {
+                card.classList.add('selected');
+            } else {
+                card.classList.remove('selected');
+            }
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        getQuiz();
+    });
+
+    function getQuiz() {
+        const searchVal = {
+            quiz_id: quizId,
+            name: username
+        };
+
+        let url = '/quiz/get';
+        fetch(url, {
+            method: 'post',
+            mode: 'same-origin',
+            cache: 'no-cache',
+            credentials: 'omit',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            redirect: 'follow',
+            referrerPolicy: 'no-referrer',
+            body: JSON.stringify(searchVal)
+        }).then(response => response.json()).then(resp => {
+            console.log(resp);
+            quizName.innerText = resp.quiz.name;
+            quizDescription.innerText = resp.quiz.description;
+            questions = resp.questions;
+
+
+            showQuestion(currentQuestionIndex);
+        });
+    }
+
+    function showQuestion(index) {
+        const questionContainer = document.getElementById('questionContainer');
+        questionContainer.innerHTML = '';
+        if (questions[index]) {
+            const question = questions[index];
+            questionContainer.innerHTML += `<div class="question mb-lg-1 p-3">
+                <h2>${question.question}</h2>
+            </div>`;
+            const answersGrid = document.createElement('div');
+            answersGrid.classList.add('row', 'row-cols-1', 'row-cols-md-2', 'g-4'); // Bootstrap grid
+            questionContainer.appendChild(answersGrid);
+            question.answers.forEach((answer) => {
+                const answerCard = document.createElement('div');
+
+                answerCard.classList.add('col'); // For grid layout
+                answerCard.innerHTML = `
+                    <div class="answer-card card mb-3" data-answer="${answer.id}">
+                        <div class="card-body">
+                            <input type="radio" name="answer" class="answer-input" value="${answer.id}">
+                            <label class="card-text">${answer.answer}</label>
+                        </div>
+                    </div>
+                `;
+                answersGrid.appendChild(answerCard);
+                answerCards = document.querySelectorAll('.answer-card');
+                answerCard.addEventListener('click', () => {
+                    const selectedRadio = answerCard.querySelector('.answer-input');
+                    selectedRadio.checked = true;
+                    highlightSelectedCard(selectedRadio);
+                    document.getElementById('nextButton').disabled = false;
+                    answers = {
+                        question_id: question.id,
+                        answer_id: answer.id,
+                        user: username,
+                        question: question.question,
+                        correct: answer.is_correct
+                    }
+                });
+            });
+            progressBar.style.width = `${((index + 1) / questions.length) * 100}%`;
+
+        }
+
+        document.getElementById('nextButton').disabled = true;
+    }
+
+    function showPreviousQuestion() {
+        if (currentQuestionIndex > 0) {
+            currentQuestionIndex--;
+            showQuestion(currentQuestionIndex);
+        }
+    }
+
+    function showNextQuestion() {
+        if (currentQuestionIndex < questions.length - 1) {
+            currentQuestionIndex++;
+            showQuestion(currentQuestionIndex);
+            postAnswers();
+        } else {
+            document.getElementById('nextButton').style.display = 'none';
+            document.getElementById('resultButton').style.display = 'block';
+        }
+    }
+
+    function postAnswers() {
+        const data = {
+            quizId: quizId,
+            answers: answers
+        };
+
+        fetch('/quiz/post', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(data)
+        }).then(res => res.json()).then(data => console.log(data));
+    }
+</script>
+</body>
+</html>

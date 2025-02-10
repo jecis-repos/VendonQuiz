@@ -1,0 +1,25 @@
+{
+  "name": "vendon/app",
+  "description": "description",
+  "minimum-stability": "dev",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "jekabs",
+      "email": "jekabsporietis@gmail.com"
+    }
+  ],
+  "require": {
+    "pecee/simple-router": "dev-master"
+  },
+  "require-dev": {
+    "roave/security-advisories": "dev-master",
+    "ext-mysqli": "*",
+    "ext-json": "*"
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Vendon\\": ""
+    }
+  }
+}

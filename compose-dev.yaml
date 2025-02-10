@@ -1,0 +1,82 @@
+services:
+  app:
+    cap_add:
+      - SYS_PTRACE
+      - SYS_ADMIN
+    build:
+      context: .
+      dockerfile: docker/php/php8.1.dockerfile
+    restart: unless-stopped
+    tty: true
+    working_dir: /var/www
+    ports:
+      - "9000:9000"
+    volumes:
+      - ./${PROJECT_DIR}/:/var/www
+      - ./docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    depends_on:
+      - database
+    networks:
+      - nety
+  #Nginx Service
+  web:
+    cap_add:
+      - SYS_PTRACE
+      - SYS_ADMIN
+    build:
+      dockerfile: docker/nginx/web.dockerfile
+      context: .
+    image: digitalocean:nginx
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "443:443"
+      - "80:80"
+    depends_on:
+      - app
+    environment:
+      - APP_DEBUG=true
+      - APP_TIMEZONE=Europe/Riga
+    working_dir: /var/www
+    volumes:
+      - ./${PROJECT_DIR}/:/var/www
+      - ./docker/nginx/conf.d/:/etc/nginx/conf.d/
+      - "dbdata:/var/lib/mysql"
+      - ./docker/export:/export
+    networks:
+      - nety
+  database:
+    image: mysql:latest
+    build:
+      context: .
+      dockerfile: docker/mysql/db.dockerfile
+    cap_add:
+      - SYS_NICE  # CAP_SYS_NICE
+    networks:
+      - nety
+    restart: always
+    volumes:
+      - ./${PROJECT_DIR}/:/var/www
+      - "dbdata:/var/lib/mysql"
+      - ./docker/mysql_dump/:/mysql_dump
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_ROOT_HOST=${MYSQL_ROOT_HOST}
+      - MYSQL_ROOT_PORT=${MYSQL_ROOT_PORT}
+      - MYSQL_ROOT_ALLOW_REMOTE_ROOT=true
+      - MYSQL_ROOT_ALLOW_REMOTE_ACCESS=true
+      - MYSQL_ROOT_ALLOW_REMOTE_CONNECTIONS=true
+      - MYSQL_ROOT_ALLOW_REMOTE_HOSTS=%
+      - MYSQL_ROOT_ALLOW_REMOTE_HOSTS=true
+    ports:
+      - ${MYSQL_ROOT_PORT}:${MYSQL_ROOT_PORT}
+networks:
+  nety:
+    driver: bridge
+#Volumes
+volumes:
+  dbdata:
+    driver: local
