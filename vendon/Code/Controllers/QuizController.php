@@ -29,7 +29,17 @@ class QuizController
         $result = $user->find('name', $post['name']);
 
         $score = new Score();
-        $score->save(['user_id' => $result->getId(), 'quiz_id' => $query['quizId'], 'score' => 0]);
+        $existingScore = $score->find(['user_id' => $result->getId(), 'quiz_id' => $query['quizId']]);
+        if (!$existingScore) {
+            $score->save(['user_id' => $result->getId(), 'quiz_id' => $query['quizId'], 'score' => 0]);
+        } else {
+            $existingScore->update([
+                'id' => $existingScore->id,
+                'user_id' => $result->getId(),
+                'quiz_id' => $query['quizId'],
+                'score' => 0
+            ]);
+        }
 
         echo file_get_contents(self::VIEW_DIR.'/questions.html');
     }
