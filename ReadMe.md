@@ -20,4 +20,9 @@ to
 ```bash
 /ect/hosts
 ```
+
+It looks like there is necessity to run composer install so run command 
+```bash
+docker compose exec app fish -c "composer install"
+```
 Open url and enjoy :) 
