@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Vendon\Code\Controllers;
 
 class HomeController
@@ -10,5 +12,4 @@ class HomeController
     {
         echo file_get_contents(self::VIEW_DIR.'/home.html');
     }
-
 }

@@ -4,7 +4,6 @@ namespace Vendon;
 
 use Pecee\SimpleRouter\SimpleRouter;
 
-
 SimpleRouter::all('/', 'HomeController@index');
 
 SimpleRouter::all('/quizes', 'QuizController@get');

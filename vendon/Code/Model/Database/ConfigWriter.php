@@ -1,8 +1,10 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Vendon\Code\Model\Database;
 
+use Exception;
 use JsonException;
 use RuntimeException;
 
@@ -23,7 +25,8 @@ class ConfigWriter
 
     /**
      *
-     * @param string $vars
+     * @param  string  $vars
+     *
      * @return string
      */
     public static function writeDataToFile(string $vars): string
@@ -34,16 +37,17 @@ class ConfigWriter
                 throw new RuntimeException("Unable to open file!");
             }
 
-            fwrite($file, PHP_EOL . $vars . PHP_EOL);
+            fwrite($file, PHP_EOL.$vars.PHP_EOL);
             fclose($file);
             return 'true';
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return 'false';
         }
     }
 
     /**
-     * @param string $key
+     * @param  string  $key
+     *
      * @return null|string
      */
     public static function readDataFromFile(string $key): ?string
@@ -56,7 +60,7 @@ class ConfigWriter
         try {
             $data = json_decode($fileContent, true, 512, JSON_THROW_ON_ERROR);
             return $data[$key] ?? null;
-        } catch (JsonException | \Exception $e) {
+        } catch (JsonException|Exception $e) {
             return null;
         }
     }

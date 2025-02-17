@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Vendon\Code\Model\App;
 
 use Vendon\Code\Model\Database\Database;
@@ -13,9 +15,18 @@ class Question extends Model
         'question',
     ];
 
-
     public function getByParameters(string $param, string $value): array
     {
-        return (new Database())->query("SELECT * FROM $this->table WHERE $param = $value")->fetch_all(MYSQLI_ASSOC);
+        $sql = 'SELECT * FROM '.$this->table.' WHERE $param = ?';
+        $mysqli = Database::newConnection();
+        $stmt = $mysqli->prepare($sql);
+        $stmt->bind_param('s', $value);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows === 0) {
+            return [];
+        }
+
+        return $result->fetch_all(MYSQLI_ASSOC);
     }
 }

@@ -293,3 +293,102 @@
 2025-02-10 04:06:06 - SELECT * FROM quizes WHERE 4 = ?
 2025-02-10 04:06:17 - https, dodiesturp.lv, /quiz, username=asdgfasdfg&quizId=4
 2025-02-10 04:06:18 - SELECT * FROM quizes WHERE 4 = ?
+2025-02-13 23:15:38 - https, dodiesturp.lv, /quiz, username=jecis_&quizId=4
+2025-02-13 23:15:38 - SELECT * FROM quizes WHERE 4 = ?
+2025-02-13 23:15:41 - 1 is_correct
+2025-02-13 23:15:44 - 1 is_correct
+2025-02-13 23:15:49 - 1 is_correct
+2025-02-13 23:21:07 - https, dodiesturp.lv, /quiz, username=jecis_&quizId=4
+2025-02-13 23:21:07 - SELECT * FROM quizes WHERE 4 = ?
+2025-02-13 23:21:10 - https, dodiesturp.lv, /quiz, username=jecis_&quizId=5
+2025-02-13 23:21:10 - SELECT * FROM quizes WHERE 5 = ?
+2025-02-13 23:21:17 - https, dodiesturp.lv, /quiz, username=jecis_&quizId=5
+2025-02-13 23:21:17 - SELECT * FROM quizes WHERE 5 = ?
+2025-02-13 23:26:47 - https, dodiesturp.lv, /quiz, username=jecis@pm.me&quizId=5
+2025-02-13 23:26:47 - SELECT * FROM quizes WHERE 5 = ?
+2025-02-13 23:26:52 - 1 is_correct
+2025-02-13 23:26:54 - https, dodiesturp.lv, /quiz, username=jecis@pm.me&quizId=5
+2025-02-13 23:26:54 - SELECT * FROM quizes WHERE 5 = ?
+2025-02-13 23:26:57 - https, dodiesturp.lv, /quiz, username=jecis@pm.me&quizId=5
+2025-02-13 23:26:57 - SELECT * FROM quizes WHERE 5 = ?
+2025-02-13 23:27:01 - 1 is_correct
+2025-02-13 23:27:02 - https, dodiesturp.lv, /quiz, username=jecis@pm.me&quizId=5
+2025-02-13 23:27:02 - SELECT * FROM quizes WHERE 5 = ?
+2025-02-13 23:27:06 - https, dodiesturp.lv, /quiz, username=jecis@pm.me&quizId=5
+2025-02-13 23:27:06 - SELECT * FROM quizes WHERE 5 = ?
+2025-02-13 23:27:11 - 1 is_correct
+2025-02-13 23:27:12 - https, dodiesturp.lv, /quiz, username=jecis@pm.me&quizId=5
+2025-02-13 23:27:12 - SELECT * FROM quizes WHERE 5 = ?
+2025-02-13 23:27:14 - https, dodiesturp.lv, /quiz, username=jecis@pm.me&quizId=4
+2025-02-13 23:27:15 - SELECT * FROM quizes WHERE 4 = ?
+2025-02-13 23:27:18 - 1 is_correct
+2025-02-13 23:27:22 - 1 is_correct
+2025-02-13 23:27:25 - 1 is_correct
+2025-02-13 23:27:27 - https, dodiesturp.lv, /quiz, username=jecis@pm.me&quizId=4
+2025-02-13 23:27:27 - SELECT * FROM quizes WHERE 4 = ?
+2025-02-17 18:49:51 - Route not found: "/favicon.ico/"
+2025-02-17 18:49:51 - #0 /var/www/vendor/pecee/simple-router/src/Pecee/SimpleRouter/Router.php(353): Pecee\SimpleRouter\Router->routeRequest()
+#1 /var/www/vendor/pecee/simple-router/src/Pecee/SimpleRouter/SimpleRouter.php(69): Pecee\SimpleRouter\Router->start()
+#2 /var/www/index.php(21): Pecee\SimpleRouter\SimpleRouter::start()
+#3 {main}
+2025-02-17 18:49:54 - https, dodiesturp.lv, /quiz, username=jecis_&quizId=4
+2025-02-17 18:49:54 - Route not found: "/favicon.ico/"
+2025-02-17 18:49:54 - #0 /var/www/vendor/pecee/simple-router/src/Pecee/SimpleRouter/Router.php(353): Pecee\SimpleRouter\Router->routeRequest()
+#1 /var/www/vendor/pecee/simple-router/src/Pecee/SimpleRouter/SimpleRouter.php(69): Pecee\SimpleRouter\Router->start()
+#2 /var/www/index.php(21): Pecee\SimpleRouter\SimpleRouter::start()
+#3 {main}
+2025-02-17 18:50:04 - https, dodiesturp.lv, /quiz, username=jecis_&quizId=4
+2025-02-17 18:50:04 - Route not found: "/favicon.ico/"
+2025-02-17 18:50:04 - #0 /var/www/vendor/pecee/simple-router/src/Pecee/SimpleRouter/Router.php(353): Pecee\SimpleRouter\Router->routeRequest()
+#1 /var/www/vendor/pecee/simple-router/src/Pecee/SimpleRouter/SimpleRouter.php(69): Pecee\SimpleRouter\Router->start()
+#2 /var/www/index.php(21): Pecee\SimpleRouter\SimpleRouter::start()
+#3 {main}
+2025-02-17 18:50:50 - https, dodiesturp.lv, /quiz, username=jecis_&quizId=4
+2025-02-17 18:50:51 - SELECT * FROM quizes WHERE 4 = ?
+2025-02-17 18:50:51 - Route not found: "/favicon.ico/"
+2025-02-17 18:50:51 - #0 /var/www/vendor/pecee/simple-router/src/Pecee/SimpleRouter/Router.php(353): Pecee\SimpleRouter\Router->routeRequest()
+#1 /var/www/vendor/pecee/simple-router/src/Pecee/SimpleRouter/SimpleRouter.php(69): Pecee\SimpleRouter\Router->start()
+#2 /var/www/index.php(21): Pecee\SimpleRouter\SimpleRouter::start()
+#3 {main}
+2025-02-17 18:50:56 - 1 is_correct
+2025-02-17 18:50:57 - 1 is_correct
+2025-02-17 18:51:00 - 1 is_correct
+2025-02-17 18:51:04 - 1 is_correct
+2025-02-17 18:51:04 - Route not found: "/favicon.ico/"
+2025-02-17 18:51:04 - #0 /var/www/vendor/pecee/simple-router/src/Pecee/SimpleRouter/Router.php(353): Pecee\SimpleRouter\Router->routeRequest()
+#1 /var/www/vendor/pecee/simple-router/src/Pecee/SimpleRouter/SimpleRouter.php(69): Pecee\SimpleRouter\Router->start()
+#2 /var/www/index.php(21): Pecee\SimpleRouter\SimpleRouter::start()
+#3 {main}
+2025-02-17 18:54:47 - https, dodiesturp.lv, /quiz, username=jecis_&quizId=4
+2025-02-17 18:54:48 - SELECT * FROM quizes WHERE 4 = ?
+2025-02-17 18:54:48 - Route not found: "/favicon.ico/"
+2025-02-17 18:54:48 - #0 /var/www/vendor/pecee/simple-router/src/Pecee/SimpleRouter/Router.php(353): Pecee\SimpleRouter\Router->routeRequest()
+#1 /var/www/vendor/pecee/simple-router/src/Pecee/SimpleRouter/SimpleRouter.php(69): Pecee\SimpleRouter\Router->start()
+#2 /var/www/index.php(21): Pecee\SimpleRouter\SimpleRouter::start()
+#3 {main}
+2025-02-17 18:54:49 - https, dodiesturp.lv, /quiz, username=jecis_&quizId=4
+2025-02-17 18:54:49 - SELECT * FROM quizes WHERE 4 = ?
+2025-02-17 18:54:49 - Route not found: "/favicon.ico/"
+2025-02-17 18:54:49 - #0 /var/www/vendor/pecee/simple-router/src/Pecee/SimpleRouter/Router.php(353): Pecee\SimpleRouter\Router->routeRequest()
+#1 /var/www/vendor/pecee/simple-router/src/Pecee/SimpleRouter/SimpleRouter.php(69): Pecee\SimpleRouter\Router->start()
+#2 /var/www/index.php(21): Pecee\SimpleRouter\SimpleRouter::start()
+#3 {main}
+2025-02-17 18:54:50 - https, dodiesturp.lv, /quiz, username=jecis_&quizId=4
+2025-02-17 18:54:50 - SELECT * FROM quizes WHERE 4 = ?
+2025-02-17 18:54:50 - Route not found: "/favicon.ico/"
+2025-02-17 18:54:50 - #0 /var/www/vendor/pecee/simple-router/src/Pecee/SimpleRouter/Router.php(353): Pecee\SimpleRouter\Router->routeRequest()
+#1 /var/www/vendor/pecee/simple-router/src/Pecee/SimpleRouter/SimpleRouter.php(69): Pecee\SimpleRouter\Router->start()
+#2 /var/www/index.php(21): Pecee\SimpleRouter\SimpleRouter::start()
+#3 {main}
+2025-02-17 18:58:26 - https, dodiesturp.lv, /quiz, username=jecis_&quizId=4
+2025-02-17 18:58:26 - Route not found: "/favicon.ico/"
+2025-02-17 18:58:26 - #0 /var/www/vendor/pecee/simple-router/src/Pecee/SimpleRouter/Router.php(353): Pecee\SimpleRouter\Router->routeRequest()
+#1 /var/www/vendor/pecee/simple-router/src/Pecee/SimpleRouter/SimpleRouter.php(69): Pecee\SimpleRouter\Router->start()
+#2 /var/www/index.php(21): Pecee\SimpleRouter\SimpleRouter::start()
+#3 {main}
+2025-02-17 18:59:26 - https, dodiesturp.lv, /quiz, username=jecis_&quizId=4
+2025-02-17 18:59:26 - Route not found: "/favicon.ico/"
+2025-02-17 18:59:26 - #0 /var/www/vendor/pecee/simple-router/src/Pecee/SimpleRouter/Router.php(353): Pecee\SimpleRouter\Router->routeRequest()
+#1 /var/www/vendor/pecee/simple-router/src/Pecee/SimpleRouter/SimpleRouter.php(69): Pecee\SimpleRouter\Router->start()
+#2 /var/www/index.php(21): Pecee\SimpleRouter\SimpleRouter::start()
+#3 {main}

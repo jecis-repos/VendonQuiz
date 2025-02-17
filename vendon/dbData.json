@@ -1,1 +1,6 @@
-{"hosts":"database","nosaukums":"vendon","parole":"vendon","lietotajs":"root"}
+{
+  "hosts": "database",
+  "nosaukums": "vendon",
+  "parole": "vendon",
+  "lietotajs": "root"
+}

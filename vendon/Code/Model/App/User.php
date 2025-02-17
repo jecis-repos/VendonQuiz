@@ -2,38 +2,21 @@
 
 namespace Vendon\Code\Model\App;
 
+use AllowDynamicProperties;
 use Vendon\Code\Model\Database\Database;
 
-#[\AllowDynamicProperties]
+#[AllowDynamicProperties]
 class User extends Model
 {
-    protected string $table = 'users';
     public array $fields = [
         'name'
     ];
+    public ?int $id = null;
+    public ?string $name;
+    protected string $table = 'users';
     protected string $byField = 'id';
 
-    /**
-     * @var ?int
-     */
-    public ?int $id = null;
-
-
-    public ?string $name;
-
-    /**
-     *  Dinamisks getters
-     *
-     * @param $name
-     *
-     * @return mixed
-     */
-    public function getProperty($name): mixed
-    {
-        return $this->$name;
-    }
-
-      public function find(string $column, mixed $data)
+    public function find(string $column, mixed $data)
     {
         $sql = "SELECT id, name FROM $this->table WHERE $column = '$data'";
         $conn = Database::newConnection();
@@ -63,6 +46,11 @@ class User extends Model
         return $mappedData;
     }
 
+    public function getProperty($name): mixed
+    {
+        return $this->$name;
+    }
+
     public function setData(array $post): self
     {
         $tags = new self();
@@ -76,6 +64,11 @@ class User extends Model
         return $tags;
     }
 
+    public function getId(): ?int
+    {
+        return (int)$this->id;
+    }
+
     public function setId(int $id): User
     {
         $this->id = $id;
@@ -83,21 +76,16 @@ class User extends Model
         return $this;
     }
 
+    public function getName(): ?string
+    {
+        return (string)$this->name;
+    }
+
     public function setName(string $name): User
     {
         $this->name = $name;
 
         return $this;
-    }
-
-    public function getId(): ?int
-    {
-        return (int)$this->id;
-    }
-
-    public function getName(): ?string
-    {
-        return (string)$this->name;
     }
 
     public function getData(string $name)

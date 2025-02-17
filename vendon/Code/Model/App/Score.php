@@ -6,6 +6,10 @@ use Vendon\Code\Model\Database\Database;
 
 class Score extends Model
 {
+    public int $id;
+    public int $quiz_id;
+    public int $user_id;
+    public int $score;
     protected string $table = 'scores';
     protected array $fields = [
         'id',
@@ -13,18 +17,7 @@ class Score extends Model
         'user_id',
         'score',
     ];
-
     protected string $byField = 'id';
-
-    public int $id;
-    public int $quiz_id;
-    public int $user_id;
-    public int $score;
-
-    public function getProperty($name): mixed
-    {
-        return $this->$name;
-    }
 
     public function find(mixed $data)
     {
@@ -40,6 +33,7 @@ class Score extends Model
 
         $conn->close();
         $result->close();
+
         return $model;
     }
 
@@ -56,5 +50,10 @@ class Score extends Model
         }
 
         return $mappedData;
+    }
+
+    public function getProperty($name): mixed
+    {
+        return $this->$name;
     }
 }

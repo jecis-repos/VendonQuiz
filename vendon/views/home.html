@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Quiz Selection</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" rel="stylesheet">
     <style>
         body {
             background-color: #f8f9fa; /* Light mode background */
@@ -64,19 +64,19 @@
                     <h1 class="text-center mb-4">Start a Quiz</h1>
                     <form id="quizForm">
                         <div class="mb-3">
-                            <label for="username" class="form-label">Username</label>
-                            <input type="text" class="form-control" id="username" placeholder="Enter your username">
-                            <div id="usernameError" class="invalid-feedback">Please enter a username.</div>
+                            <label class="form-label" for="username">Username</label>
+                            <input class="form-control" id="username" placeholder="Enter your username" type="text">
+                            <div class="invalid-feedback" id="usernameError">Please enter a username.</div>
                         </div>
                         <div class="mb-3">
-                            <label for="quizSelect" class="form-label">Select a Quiz</label>
+                            <label class="form-label" for="quizSelect">Select a Quiz</label>
                             <select class="form-select" id="quizSelect">
                                 <option selected>Select a quiz</option>
                             </select>
-                            <div id="quizSelectError" class="invalid-feedback">Please select a quiz.</div>
+                            <div class="invalid-feedback" id="quizSelectError">Please select a quiz.</div>
                         </div>
                         <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-primary">Begin Quiz</button>
+                            <button class="btn btn-primary" type="submit">Begin Quiz</button>
                         </div>
                     </form>
                 </div>
@@ -143,6 +143,5 @@
         });
     });
 </script>
-
 </body>
 </html>

@@ -2,9 +2,10 @@
 
 namespace Vendon\Code\Model\App;
 
+use AllowDynamicProperties;
 use Vendon\Code\Model\Database\Database;
 
-#[\AllowDynamicProperties]
+#[AllowDynamicProperties]
 class Model
 {
     protected array $fields;
@@ -32,6 +33,11 @@ class Model
         return Database::newConnection()->getByParam($this->table, $id, $id);
     }
 
+    public function getByParam(array $column, string $value): array
+    {
+        return Database::newConnection()->getByParameters($this->table, $column, $value);
+    }
+
     public function getByParameters(string $param, string $value): array
     {
         return Database::newConnection()->getByParameters($this->table, (array)$param, $value);
@@ -50,10 +56,5 @@ class Model
     public function delete($data): bool
     {
         return Database::newConnection()->deleteRow($this->table, $data);
-    }
-
-    public function getByParam(array $column, string $value): array
-    {
-        return Database::newConnection()->getByParameters($this->table, $column, $value);
     }
 }

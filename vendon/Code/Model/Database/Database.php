@@ -2,10 +2,11 @@
 
 namespace Vendon\Code\Model\Database;
 
+use AllowDynamicProperties;
 use mysqli;
 use Vendon\Code\Model\API\RequestApi;
 
-#[\AllowDynamicProperties]
+#[AllowDynamicProperties]
 class Database extends mysqli
 {
     private $bindParams;
@@ -14,16 +15,6 @@ class Database extends mysqli
     private $insertData;
     private $updateSQL;
     private $id;
-
-    public static function newConnection(): Database
-    {
-        return (new self(
-            ConfigWriter::readDataFromFile('hosts'),
-            ConfigWriter::readDataFromFile('lietotajs'),
-            ConfigWriter::readDataFromFile('parole'),
-            ConfigWriter::readDataFromFile('nosaukums')
-        ));
-    }
 
     public function selectTableData(string $table): array
     {
@@ -59,6 +50,16 @@ class Database extends mysqli
         return $result->fetch_assoc();
     }
 
+    public static function newConnection(): Database
+    {
+        return (new self(
+            ConfigWriter::readDataFromFile('hosts'),
+            ConfigWriter::readDataFromFile('lietotajs'),
+            ConfigWriter::readDataFromFile('parole'),
+            ConfigWriter::readDataFromFile('nosaukums')
+        ));
+    }
+
     public function getByParameters(string $table, array $columns, string $value)
     {
         $likeParam = '%'.$value.'%';
@@ -80,6 +81,32 @@ class Database extends mysqli
         $result->close();
 
         return $r;
+    }
+
+    public function getData(string $table, $data, $class)
+    {
+        $sql = 'SELECT * FROM '.$table.' WHERE name = ?';
+        $mysqli = self::newConnection();
+        $stmt = $mysqli->prepare($sql);
+        $stmt->bind_param('s', $data);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows === 0) {
+            return false;
+        }
+
+        return $result->fetch_object($class);
+    }
+
+    public function insert(string $table, $data, $useId): bool
+    {
+        $this->parseSql($table, $data, null, $useId);
+
+        $sql = 'INSERT INTO '.$table.' ('.$this->columns.') VALUES ('.$this->bindParams.') ';
+
+        $this->preparedStatements($sql);
+
+        return true;
     }
 
     public function parseSql(string $table, array $data, string $optionalType = null, bool $useId = false): void
@@ -170,32 +197,6 @@ class Database extends mysqli
         return true;
     }
 
-    public function getData(string $table, $data, $class)
-    {
-        $sql = 'SELECT * FROM '.$table.' WHERE name = ?';
-        $mysqli = self::newConnection();
-        $stmt = $mysqli->prepare($sql);
-        $stmt->bind_param('s', $data);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        if ($result->num_rows === 0) {
-            return false;
-        }
-
-        return $result->fetch_object($class);
-    }
-
-    public function insert(string $table, $data, $useId): bool
-    {
-        $this->parseSql($table, $data, null, $useId);
-
-        $sql = 'INSERT INTO '.$table.' ('.$this->columns.') VALUES ('.$this->bindParams.') ';
-
-        $this->preparedStatements($sql);
-
-        return true;
-    }
-
     public function update(string $table, array $data, string $byField): bool
     {
         $this->parseSql($table, $data, $byField);
@@ -245,19 +246,6 @@ class Database extends mysqli
         return false;
     }
 
-    protected function pingDatabase(Database $databaseInstance): void
-    {
-        if ($databaseInstance->ping()) {
-            Logger::log(
-                "Our connection is ok!\n"
-            );
-        } else {
-            Logger::log(
-                "Error: %s\n"
-            );
-        }
-    }
-
     public function getProperty($name)
     {
         return $this->$name;
@@ -275,5 +263,18 @@ class Database extends mysqli
                 'describe '.$table.';'
             )
         );
+    }
+
+    protected function pingDatabase(Database $databaseInstance): void
+    {
+        if ($databaseInstance->ping()) {
+            Logger::log(
+                "Our connection is ok!\n"
+            );
+        } else {
+            Logger::log(
+                "Error: %s\n"
+            );
+        }
     }
 }

@@ -1,9 +1,9 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Vendon\Code\Model\API;
 
-use JetBrains\PhpStorm\NoReturn;
 use JsonException;
 
 class RequestApi
@@ -15,7 +15,11 @@ class RequestApi
     public static function getPost(): array
     {
         return json_decode(
-            file_get_contents('php://input'), true, 512, JSON_THROW_ON_ERROR);
+            file_get_contents('php://input'),
+            true,
+            512,
+            JSON_THROW_ON_ERROR
+        );
     }
 
     /**
@@ -34,6 +38,7 @@ class RequestApi
 
     /**
      * @param $data
+     *
      * @return array
      */
     public static function jsonDecode($data): array

@@ -8,20 +8,16 @@ use Vendon\Code\Model\Database\Database;
 
 class Quiz extends Model
 {
+    public ?int $id = null;
+    public ?string $name;
+    public ?string $description;
     protected string $table = 'quizes';
     protected array $fields = [
         'id',
         'name',
         'description',
     ];
-
     protected string $byField = 'id';
-
-    public ?int $id = null;
-
-    public ?string $name;
-    public ?string $description;
-
     protected string $primaryKey = 'id';
 
     public function getQuizById(int $quizId): array
@@ -48,24 +44,6 @@ class Quiz extends Model
         return $tags;
     }
 
-
-    public function getQuizQuestions(int $quizId): array
-    {
-        $sql = "SELECT id,quiz_id,question FROM vendon.questions WHERE quiz_id = $quizId";
-        $conn = Database::newConnection();
-        $result = $conn->query($sql);
-        $model = [];
-        $resultData = [];
-        if ($result->num_rows > 0) {
-            $model = $result->fetch_all(MYSQLI_ASSOC);
-        }
-
-        $conn->close();
-        $result->close();
-
-        return $model;
-    }
-
     public function setId(int $param)
     {
         $this->id = $param;
@@ -85,5 +63,21 @@ class Quiz extends Model
         $this->question = $param;
 
         return $this;
+    }
+
+    public function getQuizQuestions(int $quizId): array
+    {
+        $sql = "SELECT id,quiz_id,question FROM vendon.questions WHERE quiz_id = $quizId";
+        $conn = Database::newConnection();
+        $result = $conn->query($sql);
+        $model = [];
+        if ($result->num_rows > 0) {
+            $model = $result->fetch_all(MYSQLI_ASSOC);
+        }
+
+        $conn->close();
+        $result->close();
+
+        return $model;
     }
 }

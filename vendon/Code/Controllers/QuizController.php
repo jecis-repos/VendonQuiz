@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Vendon\Code\Controllers;
 
 use JsonException;
@@ -44,6 +46,47 @@ class QuizController
         echo file_get_contents(self::VIEW_DIR.'/questions.html');
     }
 
+    /**
+     * @return array
+     */
+    public function parseUrl(): array
+    {
+        $actual_link = (empty($_SERVER['HTTPS']) ? 'http' : 'https')."://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+        $url = $actual_link;
+        $parts = parse_url($url);
+        parse_str($parts['query'], $query);
+        Logger::log(implode(', ', $parts));
+        $post = ['name' => $query['username']];
+
+        return array($query, $post);
+    }
+
+    public function save(): string
+    {
+        $post = RequestApi::getPost();
+
+        if (!isset($post['username'])) {
+            return RequestApi::jsonEncode(['error' => 'name is required']);
+        }
+
+        $tags = $this->formatTagsData($post);
+
+        if ($tags->getId()) {
+            $tags->update($tags->map());
+        } else {
+            $tags->save($tags->map());
+        }
+
+        return RequestApi::jsonEncode($tags->map());
+    }
+
+    private function formatTagsData(array $post): User
+    {
+        $tags = new User();
+
+        return $tags->setData($post);
+    }
+
     public function get(): string
     {
         return RequestApi::jsonEncode((new Quiz())->getAll());
@@ -66,7 +109,7 @@ class QuizController
         $questions = [];
 
         foreach ($questionsData as $key => $question) {
-            $questionsData[$key]['answers'] = (new Answer())->getAnswersByQuestion($question['id']);
+            $questionsData[$key]['answers'] = (new Answer())->getAnswersByQuestion((int)$question['id']);
         }
 
         $questions['quiz'] = (new Quiz())->getQuizById($quizId);
@@ -98,50 +141,9 @@ class QuizController
         return RequestApi::jsonEncode($existingScore->score++);
     }
 
-    private function formatTagsData(array $post): User
-    {
-        $tags = new User();
-
-        return $tags->setData($post);
-    }
-
-    public function save(): string
-    {
-        $post = RequestApi::getPost();
-
-        if (!isset($post['username'])) {
-            return RequestApi::jsonEncode(['error' => 'name is required']);
-        }
-
-        $tags = $this->formatTagsData($post);
-
-        if ($tags->getId()) {
-            $tags->update($tags->map());
-        } else {
-            $tags->save($tags->map());
-        }
-
-        return RequestApi::jsonEncode($tags->map());
-    }
-
     public function result()
     {
         list($query, $post) = $this->parseUrl();
         echo file_get_contents(self::VIEW_DIR.'/result.html');
-    }
-
-    /**
-     * @return array
-     */
-    public function parseUrl(): array
-    {
-        $actual_link = (empty($_SERVER['HTTPS']) ? 'http' : 'https')."://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-        $url = $actual_link;
-        $parts = parse_url($url);
-        parse_str($parts['query'], $query);
-        Logger::log(implode(', ', $parts));
-        $post = ['name' => $query['username']];
-
-        return array($query, $post);
     }
 }
