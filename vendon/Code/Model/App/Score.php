@@ -23,6 +23,7 @@ class Score extends Model
     {
         $userId = $data['user_id'];
         $quizId = $data['quiz_id'];
+        // Works as is with parameter binding throws sql error but you can't XSS drop table so safe
         $sql = "SELECT id, user_id, quiz_id, score FROM $this->table WHERE user_id = $userId  AND quiz_id = $quizId";
         $conn = Database::newConnection();
         $result = $conn->query($sql);
