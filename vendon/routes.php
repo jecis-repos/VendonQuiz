@@ -4,6 +4,9 @@ namespace Vendon;
 
 use Pecee\SimpleRouter\SimpleRouter;
 
+/**
+ * Simple Router is only used for pretty urls nothing more at the time ;)
+ */
 SimpleRouter::all('/', 'HomeController@index');
 
 SimpleRouter::all('/quizes', 'QuizController@get');

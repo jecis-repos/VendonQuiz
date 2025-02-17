@@ -392,3 +392,58 @@
 #1 /var/www/vendor/pecee/simple-router/src/Pecee/SimpleRouter/SimpleRouter.php(69): Pecee\SimpleRouter\Router->start()
 #2 /var/www/index.php(21): Pecee\SimpleRouter\SimpleRouter::start()
 #3 {main}
+2025-02-17 19:00:50 - https, dodiesturp.lv, /quiz, username=jecis_&quizId=4
+2025-02-17 19:00:50 - SELECT * FROM quizes WHERE 4 = ?
+2025-02-17 19:00:50 - Route not found: "/favicon.ico/"
+2025-02-17 19:00:50 - #0 /var/www/vendor/pecee/simple-router/src/Pecee/SimpleRouter/Router.php(353): Pecee\SimpleRouter\Router->routeRequest()
+#1 /var/www/vendor/pecee/simple-router/src/Pecee/SimpleRouter/SimpleRouter.php(69): Pecee\SimpleRouter\Router->start()
+#2 /var/www/index.php(21): Pecee\SimpleRouter\SimpleRouter::start()
+#3 {main}
+2025-02-17 19:03:30 - 1 is_correct
+2025-02-17 19:03:31 - 1 is_correct
+2025-02-17 19:03:34 - 1 is_correct
+2025-02-17 19:03:38 - Route not found: "/favicon.ico/"
+2025-02-17 19:03:38 - #0 /var/www/vendor/pecee/simple-router/src/Pecee/SimpleRouter/Router.php(353): Pecee\SimpleRouter\Router->routeRequest()
+#1 /var/www/vendor/pecee/simple-router/src/Pecee/SimpleRouter/SimpleRouter.php(69): Pecee\SimpleRouter\Router->start()
+#2 /var/www/index.php(21): Pecee\SimpleRouter\SimpleRouter::start()
+#3 {main}
+2025-02-17 19:03:40 - https, dodiesturp.lv, /quiz, username=jecis_&quizId=4
+2025-02-17 19:03:40 - SELECT * FROM quizes WHERE 4 = ?
+2025-02-17 19:03:40 - Route not found: "/favicon.ico/"
+2025-02-17 19:03:40 - #0 /var/www/vendor/pecee/simple-router/src/Pecee/SimpleRouter/Router.php(353): Pecee\SimpleRouter\Router->routeRequest()
+#1 /var/www/vendor/pecee/simple-router/src/Pecee/SimpleRouter/SimpleRouter.php(69): Pecee\SimpleRouter\Router->start()
+#2 /var/www/index.php(21): Pecee\SimpleRouter\SimpleRouter::start()
+#3 {main}
+2025-02-17 19:03:41 - Route not found: "/favicon.ico/"
+2025-02-17 19:03:41 - #0 /var/www/vendor/pecee/simple-router/src/Pecee/SimpleRouter/Router.php(353): Pecee\SimpleRouter\Router->routeRequest()
+#1 /var/www/vendor/pecee/simple-router/src/Pecee/SimpleRouter/SimpleRouter.php(69): Pecee\SimpleRouter\Router->start()
+#2 /var/www/index.php(21): Pecee\SimpleRouter\SimpleRouter::start()
+#3 {main}
+2025-02-17 19:03:47 - https, dodiesturp.lv, /quiz, username=jecis@protonmail.com&quizId=4
+2025-02-17 19:03:47 - SELECT * FROM quizes WHERE 4 = ?
+2025-02-17 19:03:48 - Route not found: "/favicon.ico/"
+2025-02-17 19:03:48 - #0 /var/www/vendor/pecee/simple-router/src/Pecee/SimpleRouter/Router.php(353): Pecee\SimpleRouter\Router->routeRequest()
+#1 /var/www/vendor/pecee/simple-router/src/Pecee/SimpleRouter/SimpleRouter.php(69): Pecee\SimpleRouter\Router->start()
+#2 /var/www/index.php(21): Pecee\SimpleRouter\SimpleRouter::start()
+#3 {main}
+2025-02-17 19:03:49 - 1 is_correct
+2025-02-17 19:03:50 - 1 is_correct
+2025-02-17 19:03:53 - 1 is_correct
+2025-02-17 19:03:58 - 1 is_correct
+2025-02-17 19:03:59 - Route not found: "/favicon.ico/"
+2025-02-17 19:03:59 - #0 /var/www/vendor/pecee/simple-router/src/Pecee/SimpleRouter/Router.php(353): Pecee\SimpleRouter\Router->routeRequest()
+#1 /var/www/vendor/pecee/simple-router/src/Pecee/SimpleRouter/SimpleRouter.php(69): Pecee\SimpleRouter\Router->start()
+#2 /var/www/index.php(21): Pecee\SimpleRouter\SimpleRouter::start()
+#3 {main}
+2025-02-17 19:04:00 - https, dodiesturp.lv, /quiz, username=jecis@protonmail.com&quizId=4
+2025-02-17 19:04:00 - SELECT * FROM quizes WHERE 4 = ?
+2025-02-17 19:04:00 - Route not found: "/favicon.ico/"
+2025-02-17 19:04:00 - #0 /var/www/vendor/pecee/simple-router/src/Pecee/SimpleRouter/Router.php(353): Pecee\SimpleRouter\Router->routeRequest()
+#1 /var/www/vendor/pecee/simple-router/src/Pecee/SimpleRouter/SimpleRouter.php(69): Pecee\SimpleRouter\Router->start()
+#2 /var/www/index.php(21): Pecee\SimpleRouter\SimpleRouter::start()
+#3 {main}
+2025-02-17 19:04:01 - Route not found: "/favicon.ico/"
+2025-02-17 19:04:01 - #0 /var/www/vendor/pecee/simple-router/src/Pecee/SimpleRouter/Router.php(353): Pecee\SimpleRouter\Router->routeRequest()
+#1 /var/www/vendor/pecee/simple-router/src/Pecee/SimpleRouter/SimpleRouter.php(69): Pecee\SimpleRouter\Router->start()
+#2 /var/www/index.php(21): Pecee\SimpleRouter\SimpleRouter::start()
+#3 {main}
