@@ -26,3 +26,7 @@ It looks like there is necessity to run composer install so run command
 docker compose exec app fish -c "composer install"
 ```
 Open url and enjoy :) 
+this project is based on 
+one of my previous works 
+
+https://bitbucket.org/Jecis_/aptieka/src/master/
