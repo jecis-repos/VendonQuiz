@@ -1,0 +1,28 @@
+name: Docker startup
+on:
+  push:
+    branches: [master]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      COMPOSE_PROJECT_NAME: vendon-ci
+    steps:
+      - uses: actions/checkout@v4
+      - run: cp .env.example .env
+      - run: docker compose config --quiet
+      - run: docker compose build app
+      - run: docker compose run --rm --no-deps app composer install --no-interaction --prefer-dist
+      - run: docker compose up -d --wait --wait-timeout 180
+      - name: Homepage and quiz fixture
+        run: |
+          curl --fail --retry 10 --retry-connrefused --retry-delay 2 http://127.0.0.1:8082/ -o /tmp/home.html
+          test -s /tmp/home.html
+          curl --fail http://127.0.0.1:8082/quizes -o /tmp/quizes.json
+          python3 -c 'import json; data=json.load(open("/tmp/quizes.json")); assert data'
+      - if: always()
+        run: docker compose down --volumes --remove-orphans

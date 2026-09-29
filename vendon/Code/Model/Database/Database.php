@@ -53,10 +53,10 @@ class Database extends mysqli
     public static function newConnection(): Database
     {
         return (new self(
-            ConfigWriter::readDataFromFile('hosts'),
-            ConfigWriter::readDataFromFile('lietotajs'),
-            ConfigWriter::readDataFromFile('parole'),
-            ConfigWriter::readDataFromFile('nosaukums')
+            getenv('DB_HOST') ?: ConfigWriter::readDataFromFile('hosts'),
+            getenv('DB_USERNAME') ?: ConfigWriter::readDataFromFile('lietotajs'),
+            getenv('DB_PASSWORD') ?: ConfigWriter::readDataFromFile('parole'),
+            getenv('DB_DATABASE') ?: ConfigWriter::readDataFromFile('nosaukums')
         ));
     }
 
@@ -109,7 +109,7 @@ class Database extends mysqli
         return true;
     }
 
-    public function parseSql(string $table, array $data, string $optionalType = null, bool $useId = false): void
+    public function parseSql(string $table, array $data, ?string $optionalType = null, bool $useId = false): void
     {
         $tableData = self::newConnection()->query(
             'SHOW columns FROM '.$table.';'

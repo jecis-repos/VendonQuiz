@@ -1,0 +1,6 @@
+.env
+.idea/
+**/.idea/
+vendon/vendor/
+vendon/dbData.json
+vendon/*.log
