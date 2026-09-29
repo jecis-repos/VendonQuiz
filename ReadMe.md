@@ -1,32 +1,20 @@
+# Vendon Quiz
 
-## Installation
+Small PHP quiz application. The local Docker setup uses PHP 8.3, Nginx and MySQL 8.4.
 
-Clone repository
+## Run locally
 
-Open root directory and run
-
-```bash
- docker compose up -d
-```
-Looks like automated import dosen't work so import database manually from file docker/mysql_dump/vendon.sql
-```bash
-docker/mysql_dump/vendon.sql
-```
-If you want to browse url not as localhot ten add
-```bash
- 127.0.0.1 dodiesturp.lv
- ```
-to
-```bash
-/ect/hosts
+```sh
+cp .env.example .env
+docker compose build app
+docker compose run --rm --no-deps app composer install --no-interaction
+docker compose up -d --wait
 ```
 
-It looks like there is necessity to run composer install so run command 
-```bash
-docker compose exec app fish -c "composer install"
-```
-Open url and enjoy :) 
-this project is based on 
-one of my previous works 
+Open http://localhost:8082 (or set `HTTP_PORT` in `.env`). No hostname override or TLS files are needed for this local setup. The checked-in SQL fixture is imported automatically when the database volume is first created. Existing database volumes are preserved.
 
-https://bitbucket.org/Jecis_/aptieka/src/master/
+The application takes database settings from the Compose environment; the old `dbData.json` configuration remains a fallback for installations outside Docker.
+
+To stop the local stack, run `docker compose down`. To run optional development overrides, use `docker compose -f docker-compose.yaml -f compose-dev.yaml up -d`.
+
+Database settings come from the Compose environment. A standalone PHP installation can supply the same `DB_HOST`, `DB_DATABASE`, `DB_USERNAME` and `DB_PASSWORD` variables; local `dbData.json` overrides are ignored by Git.
