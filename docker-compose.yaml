@@ -34,7 +34,7 @@ services:
       - dbdata:/var/lib/mysql
       - ./docker/mysql_dump/vendon.sql:/docker-entrypoint-initdb.d/01-vendon.sql:ro
     healthcheck:
-      test: ["CMD-SHELL", "mysqladmin ping -h localhost -uroot -p$$MYSQL_ROOT_PASSWORD --silent"]
+      test: ["CMD-SHELL", "mysqladmin ping --protocol=TCP -h 127.0.0.1 -uroot -p$$MYSQL_ROOT_PASSWORD --silent"]
       interval: 5s
       timeout: 5s
       retries: 30

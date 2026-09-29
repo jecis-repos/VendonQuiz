@@ -24,5 +24,7 @@ jobs:
           test -s /tmp/home.html
           curl --fail http://127.0.0.1:8082/quizes -o /tmp/quizes.json
           python3 -c 'import json; data=json.load(open("/tmp/quizes.json")); assert data'
+      - if: failure()
+        run: docker compose logs --no-color --tail 100
       - if: always()
         run: docker compose down --volumes --remove-orphans
